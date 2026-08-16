@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netheron | Official Channel</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        
+        /* מסך פתיחה שמבטיח שהמוזיקה תעבוד */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 100;
+            color: white; font-family: 'Courier New', Courier, monospace; cursor: pointer;
+        }
+
+        .main-content {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('https://images.alphacoders.com/109/1098495.png');
+            background-size: cover; background-position: center;
+            font-family: 'Courier New', Courier, monospace; color: white; text-align: center;
+        }
+
+        h1 { font-size: 5rem; margin: 0; text-shadow: 6px 6px 0px #373737; letter-spacing: 5px; }
+        p { font-size: 1.5rem; background: rgba(0, 0, 0, 0.7); padding: 10px 20px; border: 2px solid #555; }
+        
+        .sub-button {
+            display: inline-block; margin-top: 30px; background-color: #5d5d5d;
+            color: white !important; text-decoration: none !important;
+            padding: 20px 50px; font-size: 2rem; font-weight: bold;
+            border: 4px solid #000; box-shadow: inset -4px -4px 0px #373737, inset 4px 4px 0px #ababab;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sub-button:hover {
+            background-color: #ff0000;
+            box-shadow: inset -4px -4px 0px #8b0000, inset 4px 4px 0px #ff4545;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- שכבת לחיצה ראשונית שמפעילה את Pigstep -->
+    <div id="overlay" onclick="startExperience()">
+        <h1>CLICK TO ENTER</h1>
+        <p>🔊 Sound On (Pigstep)</p>
+    </div>
+
+    <div class="main-content">
+        <h1>NETHERON</h1>
+        <p>OFFICIAL MINECRAFT CHANNEL</p>
+        
+        <a href="https://www.youtube.com/@Nethrox-p3z" target="_blank" class="sub-button">
+            SUBSCRIBE
+        </a>
+    </div>
+
+    <!-- כאן האתר מחפש את הקובץ המקומי בשם pigstep.mp3 -->
+    <audio id="mcAudio" loop>
+        <source src="pigstep.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startExperience() {
+            var audio = document.getElementById("mcAudio");
+            var overlay = document.getElementById("overlay");
+            
+            // מפעיל את האודיו
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio play blocked", e));
+            
+            // מסתיר את שכבת הפתיחה כדי לחשוף את האתר
+            overlay.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
