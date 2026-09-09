@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תודה רבה לאיתי! 🎧</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0b0c10;
+            color: #ffffff;
+            font-family: 'Rubik', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* רקע כוכבים בדינמיקה קולנועית */
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* מכל הכתוביות */
+        .credits-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* אנימציית גלילה של כתוביות סרט */
+        .scroll-wrapper {
+            position: absolute;
+            width: 100%;
+            top: 100vh;
+            animation: movieCredits 28s linear forwards;
+        }
+
+        @keyframes movieCredits {
+            0% {
+                top: 100vh;
+            }
+            100% {
+                top: 5vh; /* נעצר בסוף כדי שכרטיסיית המשחק תישאר נגישה */
+            }
+        }
+
+        /* עיצוב הטקסטים והברכות */
+        .title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #f39c12;
+            text-shadow: 0 0 20px rgba(243, 156, 18, 0.8), 0 0 40px rgba(243, 156, 18, 0.4);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #00d2ff;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        .divider {
+            font-size: 2rem;
+            color: #ff4757;
+            margin: 30px 0;
+            animation: spin 6s infinite linear;
+            display: inline-block;
+        }
+
+        .line {
+            font-size: 1.6rem;
+            margin: 25px 0;
+            line-height: 1.8;
+            color: #e0e0e0;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .line:hover {
+            transform: scale(1.1);
+            color: #00ffcc;
+        }
+
+        .highlight {
+            color: #ff007f;
+            font-weight: bold;
+        }
+
+        .emoji-icon {
+            font-size: 2.2rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* כרטיסיית הצעה למשחק בסוף */
+        .game-box {
+            margin-top: 80px;
+            margin-bottom: 100px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            border: 2px solid #00f2fe;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+            backdrop-filter: blur(10px);
+            animation: pulseGlow 2s infinite alternate;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.3); }
+            100% { box-shadow: 0 0 45px rgba(0, 242, 254, 0.8); }
+        }
+
+        .game-box h2 {
+            font-size: 2.2rem;
+            color: #ff007f;
+            margin-bottom: 15px;
+        }
+
+        .game-box p {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .game-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff007f, #7928ca);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.8);
+        }
+
+        /* הודעה קטנה בלחיצה על הכפתור */
+        #game-message {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #00ffcc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- קנבס לכוכבים זזים ברקע -->
+    <canvas id="stars-canvas"></canvas>
+
+    <div class="credits-container">
+        <div class="scroll-wrapper">
+
+            <!-- כותרת ראשית -->
+            <div class="title">מכתב תודה מיוחד 🎬</div>
+            <div class="subtitle">מוקדש באהבה לאיתי ⭐</div>
+
+            <div class="divider">✦ 🎧 ✦</div>
+
+            <!-- גוף המכתב / הברכות -->
+            <div class="line">איתי היקר,</div>
+            <div class="line">תודה ענקית על <span class="highlight">האוזניות המטורפות!</span> 🔥</div>
+            <div class="emoji-icon">🎧🎶</div>
+
+            <div class="line">אין מילים לתאר איזה כיף לשמוע בהן,</div>
+            <div class="line">איכות שמע פשוט מדרגה אחרת!</div>
+
+            <div class="divider">✦ ✨ ✦</div>
+
+            <!-- ברכות -->
+            <div class="line">מאחל לך שתמיד תהיה מוקף בסאונד של <span class="highlight">שמחה ואושר</span> 🌟</div>
+            <div class="line">שכל שיר שתשמע יביא איתו אנרגיות מטורפות ורגעים טובים 🎵</div>
+            <div class="line">שתמיד ישמעו אצלך רק בשורות טובות ומוזיקה מעולה! 🎼</div>
+            <div class="line">תמשיך להיות גבר על ואלוף כמו שאתה 👑</div>
+
+            <div class="divider">✦ 🎮 ✦</div>
+
+            <!-- הצעה למשחק בסוף הברכה -->
+            <div class="game-box">
+                <h2>ועכשיו... לחלק האמנותי! 🕹️</h2>
+                <p>אחרי כל הברכות והתודות, הגיע הזמן לבחון את האוזניות החדשות בפעולה!</p>
+                <p>מה אומר, עולים לסיבוב משחק ביחד? 🚀</p>
+                <button class="game-btn" onclick="acceptChallenge()">בוא נשחק! 🎮</button>
+                <div id="game-message">אשש! שלח לי הודעה וננסה לתאם סשן 🤙</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // יצירת רקע כוכבים זזים
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const stars = Array.from({ length: 150 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            speed: Math.random() * 0.5 + 0.2
+        }));
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffffff';
+
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                star.y -= star.speed;
+                if (star.y < 0) {
+                    star.y = canvas.height;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+
+        // פונקציית לחיצה על כפתור המשחק
+        function acceptChallenge() {
+            const msg = document.getElementById('game-message');
+            msg.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
